@@ -130,7 +130,7 @@ while True:
                 update_dropdowns()
 
         if event == "Rediģēt":
-            edit_product_name = values["edit_product"]
+            edit_product_name = values["edit_product"] #TURPMĀKAIS KODS NODROŠINA PRODUKTU REDIĢĒŠANU
 
             for item in pantry:
                 if f"{item.name} ({item.variety}) ({item.product_type})" == edit_product_name:
@@ -143,11 +143,11 @@ while True:
                     item.quantity = new_quantity
                     item.product_type = new_product_type
                     item.variety = new_variety
-                    sg.popup(f"Produkts atjaunināts: {new_name} ({new_quantity} kg)")
+                    sg.popup(f"Produkts atjaunināts: {new_name} ({new_quantity} kg)") #PARĀDĀS KAD REDIĢĒTS PRODUKTS
 
                  
                     inventory_list = [f"{i+1}. {item.name} ({item.variety}) ({item.product_type}) ({item.quantity} kg)" for i, item in enumerate(pantry)]
-                    window["inventory_list"].update(inventory_list)
+                    window["inventory_list"].update(inventory_list) #updato listiņu ar rediģēto produktu
 
                     # atjaunini lai dropdowni parāda rediģētos produktus
                     update_dropdowns()
@@ -156,19 +156,19 @@ while True:
                 sg.popup(f"{edit_product_name} nav atrasts pārtikas skapī.")
 
         if event == "Dzēst":
-            delete_product_name = values["delete_product"]
+            delete_product_name = values["delete_product"] 
 
             for item in pantry:
                 if f"{item.name} ({item.variety}) ({item.product_type})" == delete_product_name:
-                    pantry.remove(item)
-                    sg.popup(f"{delete_product_name} dzēsts no pārtikas skapja.")
+                    pantry.remove(item) #izdara, lai tiek izdzēsts specifiskais produkts
+                    sg.popup(f"{delete_product_name} dzēsts no pārtikas skapja.") 
                     break
             else:
-                sg.popup(f"{delete_product_name} nav atrasts pārtikas skapī.")
+                sg.popup(f"{delete_product_name} nav atrasts pārtikas skapī.") #šis kods parādās, ja nav izvēlēts vai nav korekts produkts atrasts listiņā
 
            
-            inventory_list = [f"{i+1}. {item.name} ({item.variety}) ({item.product_type}) ({item.quantity} kg)" for i, item in enumerate(pantry)]
-            window["inventory_list"].update(inventory_list)
+            inventory_list = [f"{i+1}. {item.name} ({item.variety}) ({item.product_type}) ({item.quantity} kg)" for i, item in enumerate(pantry)] #salabo korekti numurāciju, ja izdzēsts produkts no listiņa
+            window["inventory_list"].update(inventory_list) #updato listiņu, lai nerādītu izdzēstos produktus
 
             # atjaunini dropdownus lai neiekļautu izdzēstus produktus
             update_dropdowns()
